@@ -1,191 +1,179 @@
-import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Otaku Store</title>
 
-export default function OtakuStore() {
-  const [cart, setCart] = useState([]);
-  const [search, setSearch] = useState("");
-
-  const products = [
-    {
-      id: 1,
-      name: "ستيكر اتاك اون تايتن",
-      price: 20,
-      desc: "ستيكر لانمي اتاك اون تايتن",
-      note: "عرض لفترة محدودة 🔥",
-      image: "https://images.unsplash.com/photo-1608889175123-1b56c7cc8e9d",
-    },
-    {
-      id: 2,
-      name: "تيشيرت اتاك اون تايتن",
-      price: 400,
-      desc: "تيشيرت اسود مطبوع عليه بوستر",
-      image: "https://images.unsplash.com/photo-1618354691321-e851c56960d5",
-    },
-    {
-      id: 3,
-      name: "حقيبة ظهر اتاك اون تايتن",
-      price: 250,
-      desc: "اختار اللون اللي يعجبك",
-      colors: ["اسود", "احمر", "ازرق"],
-      image: "https://images.unsplash.com/photo-1598032895397-b9472444bf93",
-    },
-    {
-      id: 4,
-      name: "تيشيرت غوجو ساتورو",
-      price: 300,
-      desc: "غوجو ضد سوكونا",
-      image: "https://images.unsplash.com/photo-1611605698335-8b1569810432",
-    },
-    {
-      id: 5,
-      name: "مج دراجون بول",
-      price: 50,
-      desc: "مج انمي دراجون بول",
-      image: "https://images.unsplash.com/photo-1585386959984-a41552231658",
-    },
-  ];
-
-  const addToCart = (product) => {
-    const existing = cart.find((item) => item.id === product.id);
-
-    if (existing) {
-      setCart(
-        cart.map((item) =>
-          item.id === product.id
-            ? { ...item, qty: item.qty + 1 }
-            : item
-        )
-      );
-    } else {
-      setCart([...cart, { ...product, qty: 1 }]);
-    }
-  };
-
-  const removeFromCart = (id) => {
-    setCart(cart.filter((item) => item.id !== id));
-  };
-
-  const delivery = 20;
-  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-
-  const checkoutWhatsApp = () => {
-    const message = cart
-      .map((c) => `${c.name} × ${c.qty} = ${c.price * c.qty} جنيه`)
-      .join("%0A");
-
-    const finalTotal = total + delivery;
-
-    const url = `https://wa.me/201125210875?text=🛒 طلب جديد:%0A${message}%0A🚚 التوصيل: ${delivery} جنيه%0A💰 الإجمالي: ${finalTotal} جنيه`;
-    window.open(url, "_blank");
-  };
-
-  const filtered = products.filter((p) =>
-    p.name.toLowerCase().includes(search.toLowerCase())
-  );
-
-  return (
-    <div className="min-h-screen bg-black text-white p-4">
-
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-5xl font-extrabold text-purple-400 drop-shadow-lg">
-          🗾 Otaku Store
-        </h1>
-        <p className="text-gray-400">متجر عشاق الأنمي 🔥</p>
-      </div>
-
-      {/* Search */}
-      <input
-        type="text"
-        placeholder="🔍 ابحث عن منتج..."
-        className="w-full p-3 rounded bg-gray-900 text-white mb-6 border border-purple-500"
-        onChange={(e) => setSearch(e.target.value)}
-      />
-
-      {/* Products */}
-      <div className="grid md:grid-cols-3 gap-6">
-        {filtered.map((p) => (
-          <Card
-            key={p.id}
-            className="bg-gray-900 border border-purple-500 hover:scale-105 transition shadow-lg shadow-purple-700/40"
-          >
-            <CardContent className="p-3">
-              <img
-                src={p.image}
-                className="w-full h-48 object-cover rounded"
-              />
-              <h2 className="text-xl font-bold mt-2 text-purple-300">
-                {p.name}
-              </h2>
-              <p className="text-gray-400">{p.desc}</p>
-
-              {p.colors && (
-                <p className="text-sm text-gray-300">
-                  الألوان: {p.colors.join(" - ")}
-                </p>
-              )}
-
-              {p.note && (
-                <p className="text-yellow-400">{p.note}</p>
-              )}
-
-              <p className="font-bold mt-2 text-lg">{p.price} جنيه</p>
-
-              <Button
-                className="mt-3 w-full bg-purple-600 hover:bg-purple-700"
-                onClick={() => addToCart(p)}
-              >
-                🛒 أضف للسلة
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {/* Cart */}
-      <div className="mt-8 p-4 bg-gray-900 rounded-xl border border-purple-500">
-        <h2 className="text-2xl font-bold mb-3 text-purple-300">
-          🛒 السلة ({cart.length})
-        </h2>
-
-        {cart.length === 0 ? (
-          <p className="text-gray-400">السلة فاضية</p>
-        ) : (
-          <>
-            {cart.map((c) => (
-              <div key={c.id} className="flex justify-between mb-2">
-                <p>{c.name} × {c.qty}</p>
-                <button
-                  className="text-red-400"
-                  onClick={() => removeFromCart(c.id)}
-                >
-                  حذف
-                </button>
-              </div>
-            ))}
-
-            <hr className="my-2 border-gray-700" />
-            <p>🚚 التوصيل: {delivery} جنيه</p>
-            <p className="font-bold text-lg">
-              💰 الإجمالي: {total + delivery} جنيه
-            </p>
-
-            <Button
-              className="mt-3 w-full bg-green-600 hover:bg-green-700"
-              onClick={checkoutWhatsApp}
-            >
-              اطلب عبر واتساب
-            </Button>
-          </>
-        )}
-      </div>
-
-      {/* Contact */}
-      <div className="mt-6 text-center text-gray-400">
-        <p>📞 01125210875</p>
-        <p>📧 zrootah12@gmail.com</p>
-      </div>
-    </div>
-  );
+<style>
+body {
+  margin:0;
+  font-family: Arial;
+  background: linear-gradient(to bottom, #000, #1a0033);
+  color:white;
 }
+
+/* Header */
+header {
+  text-align:center;
+  padding:20px;
+  font-size:30px;
+  color:#c084fc;
+  font-weight:bold;
+}
+
+/* Search */
+.search {
+  width:90%;
+  margin:auto;
+  display:block;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  margin-bottom:20px;
+}
+
+/* Grid */
+.products {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap:20px;
+  padding:20px;
+}
+
+/* Card */
+.card {
+  background:#111;
+  border:1px solid #9333ea;
+  border-radius:15px;
+  padding:10px;
+  transition:0.3s;
+  box-shadow:0 0 15px rgba(147,51,234,0.5);
+}
+
+.card:hover {
+  transform:scale(1.05);
+}
+
+.card img {
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.price {
+  color:#22c55e;
+  font-weight:bold;
+}
+
+/* Button */
+button {
+  width:100%;
+  padding:10px;
+  background:#9333ea;
+  border:none;
+  color:white;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+/* Cart */
+.cart {
+  background:#111;
+  margin:20px;
+  padding:15px;
+  border-radius:15px;
+  border:1px solid #9333ea;
+}
+</style>
+</head>
+
+<body>
+
+<header>🗾 Otaku Store</header>
+
+<input class="search" id="search" placeholder="🔍 ابحث عن منتج...">
+
+<div class="products" id="products"></div>
+
+<div class="cart">
+<h2>🛒 السلة (<span id="count">0</span>)</h2>
+<div id="cartItems"></div>
+<p>🚚 التوصيل: 20 جنيه</p>
+<p><b>💰 الإجمالي: <span id="total">0</span> جنيه</b></p>
+<button onclick="checkout()">اطلب عبر واتساب</button>
+</div>
+
+<script>
+const products = [
+{
+id:1,
+name:"تيشيرت غوجو",
+price:300,
+img:"https://images.unsplash.com/photo-1611605698335-8b1569810432"
+},
+{
+id:2,
+name:"شنطة انمي",
+price:250,
+img:"https://images.unsplash.com/photo-1598032895397-b9472444bf93"
+},
+{
+id:3,
+name:"مج دراجون بول",
+price:50,
+img:"https://images.unsplash.com/photo-1585386959984-a41552231658"
+}
+];
+
+let cart=[];
+
+function renderProducts(list){
+document.getElementById("products").innerHTML =
+list.map(p=>`
+<div class="card">
+<img src="${p.img}">
+<h3>${p.name}</h3>
+<p class="price">${p.price} جنيه</p>
+<button onclick="add(${p.id})">🛒 أضف للسلة</button>
+</div>
+`).join("");
+}
+
+function add(id){
+let item = cart.find(i=>i.id===id);
+if(item){item.qty++}
+else{
+let p = products.find(x=>x.id===id);
+cart.push({...p,qty:1});
+}
+renderCart();
+}
+
+function renderCart(){
+document.getElementById("count").innerText = cart.length;
+
+document.getElementById("cartItems").innerHTML =
+cart.map(c=>`
+<p>${c.name} × ${c.qty}</p>
+`).join("");
+
+let total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+document.getElementById("total").innerText = total+20;
+}
+
+function checkout(){
+let msg = cart.map(c=>`${c.name} x ${c.qty}`).join("%0A");
+window.open(`https://wa.me/201125210875?text=طلب:%0A${msg}`);
+}
+
+document.getElementById("search").oninput = e=>{
+let val = e.target.value.toLowerCase();
+renderProducts(products.filter(p=>p.name.toLowerCase().includes(val)));
+};
+
+renderProducts(products);
+</script>
+
+</body>
+</html>
