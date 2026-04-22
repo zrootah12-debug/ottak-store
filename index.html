@@ -1,140 +1,197 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>Otaku Store</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: #0a0a0a;
-      color: white;
-    }
+<meta charset="UTF-8">
+<title>Otaku Store</title>
 
-    header {
-      background: linear-gradient(90deg, #ff0000, #990000);
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 0 20px red;
-    }
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0a0a0a;
+  color:white;
+}
 
-    header img {
-      width: 120px;
-      border-radius: 50%;
-      box-shadow: 0 0 20px black;
-    }
+/* HEADER */
+header{
+  background:linear-gradient(90deg,#ff0000,#990000);
+  text-align:center;
+  padding:30px;
+  box-shadow:0 0 30px red;
+}
 
-    h1 {
-      margin: 10px 0;
-      font-size: 40px;
-    }
+header img{
+  width:120px;
+}
 
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
+h1{
+  margin:10px 0;
+  font-size:40px;
+}
 
-    .card {
-      background: #111;
-      border: 2px solid red;
-      border-radius: 15px;
-      padding: 15px;
-      text-align: center;
-      transition: 0.3s;
-    }
+/* SEARCH */
+.search{
+  padding:20px;
+  text-align:center;
+}
 
-    .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px red;
-    }
+.search input{
+  width:80%;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+}
 
-    .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
+/* PRODUCTS */
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  padding:20px;
+}
 
-    button {
-      background: red;
-      border: none;
-      padding: 10px;
-      color: white;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
+.card{
+  background:#111;
+  border:2px solid red;
+  border-radius:15px;
+  padding:15px;
+  text-align:center;
+  transition:.3s;
+}
 
-    button:hover {
-      background: darkred;
-    }
+.card:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 20px red;
+}
 
-    .cart {
-      background: #111;
-      border-top: 2px solid red;
-      padding: 20px;
-    }
-  </style>
+.card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+/* BUTTON */
+button{
+  background:red;
+  color:white;
+  border:none;
+  padding:10px;
+  margin-top:10px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:darkred;
+}
+
+/* CART */
+.cart{
+  background:#111;
+  padding:20px;
+  border-top:2px solid red;
+}
+
+.whatsapp{
+  background:green;
+  margin-top:10px;
+}
+</style>
+
 </head>
 
 <body>
 
 <header>
-  <!-- حط صورة اللوجو بنفس الاسم -->
+  <!-- حط اللوجو بنفس الاسم -->
   <img src="logo.png">
   <h1>Otaku Store</h1>
   <p>متجر عشاق الأنمي 🔥</p>
 </header>
+
+<div class="search">
+  <input id="search" placeholder="🔍 ابحث عن منتج..." onkeyup="renderProducts()">
+</div>
 
 <div class="products" id="products"></div>
 
 <div class="cart">
   <h2>🛒 السلة</h2>
   <div id="cart"></div>
+  <p id="total"></p>
+  <button class="whatsapp" onclick="order()">اطلب عبر واتساب</button>
 </div>
 
 <script>
+
 const products = [
-  {name:"ستيكر اتاك", price:20, img:"https://images.unsplash.com/photo-1608889175123"},
-  {name:"تيشيرت انمي", price:400, img:"https://images.unsplash.com/photo-1618354691321"},
-  {name:"حقيبة", price:250, img:"https://images.unsplash.com/photo-1598032895397"},
+{
+  name:"تيشيرت اتاك",
+  price:400,
+  img:"https://images.unsplash.com/photo-1618354691321-e851c56960d5"
+},
+{
+  name:"حقيبة انمي",
+  price:250,
+  img:"https://images.unsplash.com/photo-1598032895397-b9472444bf93"
+},
+{
+  name:"مج دراجون بول",
+  price:80,
+  img:"https://images.unsplash.com/photo-1585386959984-a41552231658"
+}
 ];
 
 let cart = [];
 
 function renderProducts(){
   const container = document.getElementById("products");
+  const search = document.getElementById("search").value.toLowerCase();
+
   container.innerHTML = "";
 
-  products.forEach((p,i)=>{
+  products
+  .filter(p=>p.name.toLowerCase().includes(search))
+  .forEach((p,i)=>{
     container.innerHTML += `
-      <div class="card">
-        <img src="${p.img}">
-        <h3>${p.name}</h3>
-        <p>${p.price} جنيه</p>
-        <button onclick="addToCart(${i})">أضف للسلة</button>
-      </div>
+    <div class="card">
+      <img src="${p.img}">
+      <h3>${p.name}</h3>
+      <p>${p.price} جنيه</p>
+      <button onclick="add(${i})">أضف للسلة</button>
+    </div>
     `;
   });
 }
 
-function addToCart(i){
+function add(i){
   cart.push(products[i]);
   renderCart();
 }
 
 function renderCart(){
   const c = document.getElementById("cart");
+  const t = document.getElementById("total");
+
   c.innerHTML = "";
+  let total = 0;
 
   cart.forEach(item=>{
     c.innerHTML += `<p>${item.name} - ${item.price} جنيه</p>`;
+    total += item.price;
   });
+
+  t.innerHTML = "الإجمالي: " + total + " جنيه";
+}
+
+function order(){
+  let text = cart.map(i=>i.name).join("%0A");
+  window.open("https://wa.me/201125210875?text=طلب:%0A"+text);
 }
 
 renderProducts();
+
 </script>
 
 </body>
