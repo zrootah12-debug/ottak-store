@@ -2,238 +2,61 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>اوتاكو Store</title>
+<title>Atuko Store</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
-
 body {
   margin: 0;
-  font-family: 'Cairo', sans-serif;
-  background: linear-gradient(135deg, #7f1d1d, #dc2626);
+  font-family: Arial;
+  background: #0f0f0f;
   color: white;
+  text-align: center;
 }
 
-.container {
+.header {
+  background: linear-gradient(135deg, red, orange);
   padding: 20px;
 }
 
 .logo {
-  display: block;
-  margin: auto;
-  width: 300px;
-  border-radius: 20px;
-  box-shadow: 0 0 20px black;
-}
-
-h1 {
-  text-align: center;
-  font-size: 40px;
-  text-shadow: 2px 2px 10px black;
-}
-
-input {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  margin: 15px 0;
+  width: 200px;
 }
 
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 10px;
+  padding: 10px;
 }
 
 .card {
-  background: #111;
+  background: #1a1a1a;
+  padding: 10px;
   border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 0 15px rgba(0,0,0,0.6);
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: scale(1.05) rotate(1deg);
-}
-
-.card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.card h3 {
-  margin: 10px;
-}
-
-.card p {
-  margin: 0 10px 10px;
 }
 
 button {
-  width: 90%;
-  margin: 10px;
-  padding: 10px;
+  background: red;
   border: none;
-  background: #dc2626;
+  padding: 10px;
   color: white;
   border-radius: 10px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.cart {
-  background: white;
-  color: black;
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 15px;
-}
-
-.cart-item {
-  display: flex;
-  justify-content: space-between;
-}
-
-.footer {
-  text-align: center;
-  margin-top: 20px;
 }
 </style>
-</head>
 
+</head>
 <body>
 
-<div class="container">
-
-<!-- لوجو أنمي -->
-<img src="https://wallpapercave.com/wp/wp8432343.jpg" class="logo">
-
-<h1>🔥 اوتاكو Store 🔥</h1>
-
-<input type="text" id="search" placeholder="ابحث عن انمي...">
-
-<div class="products" id="products"></div>
-
-<div class="cart">
-  <h2>السلة (<span id="count">0</span>)</h2>
-  <div id="cartItems"></div>
-  <hr>
-  <p><b>الإجمالي: <span id="total">0</span> جنيه</b></p>
-  <button onclick="checkout()">اطلب عبر واتساب</button>
+<div class="header">
+  <!-- اللوجو -->
+  <img class="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..." />
+  <h2>🔥 Atuko Store 🔥</h2>
 </div>
 
-<div class="footer">
-  <p>📞 01125210875</p>
+<div class="products">
+  <div class="card">منتج 1</div>
+  <div class="card">منتج 2</div>
 </div>
-
-</div>
-
-<script>
-const products = [
-  {
-    name: "ستيكر اتاك اون تايتن",
-    price: 20,
-    image: "https://wallpapercave.com/wp/wp7418479.jpg"
-  },
-  {
-    name: "تيشيرت اتاك اون تايتن",
-    price: 400,
-    image: "https://wallpapercave.com/wp/wp7418483.jpg"
-  },
-  {
-    name: "شنطة اتاك اون تايتن",
-    price: 250,
-    image: "https://wallpapercave.com/wp/wp7418505.jpg"
-  },
-  {
-    name: "تيشيرت غوجو",
-    price: 300,
-    image: "https://wallpapercave.com/wp/wp11039847.jpg"
-  },
-  {
-    name: "مج دراجون بول",
-    price: 50,
-    image: "https://wallpapercave.com/wp/wp2757874.jpg"
-  }
-];
-
-let cart = [];
-
-function renderProducts(list) {
-  const container = document.getElementById("products");
-  container.innerHTML = "";
-
-  list.forEach((p, index) => {
-    container.innerHTML += `
-      <div class="card">
-        <img src="${p.image}">
-        <h3>${p.name}</h3>
-        <p>${p.price} جنيه</p>
-        <button onclick="addToCart(${index})">أضف للسلة</button>
-      </div>
-    `;
-  });
-}
-
-function addToCart(index) {
-  cart.push(products[index]);
-  updateCart();
-}
-
-function removeFromCart(i) {
-  cart.splice(i, 1);
-  updateCart();
-}
-
-function updateCart() {
-  const items = document.getElementById("cartItems");
-  const totalEl = document.getElementById("total");
-  const count = document.getElementById("count");
-
-  items.innerHTML = "";
-  let total = 0;
-
-  cart.forEach((item, i) => {
-    total += item.price;
-    items.innerHTML += `
-      <div class="cart-item">
-        <span>${item.name}</span>
-        <span>${item.price} جنيه 
-        <button onclick="removeFromCart(${i})">❌</button>
-        </span>
-      </div>
-    `;
-  });
-
-  totalEl.innerText = total;
-  count.innerText = cart.length;
-}
-
-function checkout() {
-  let message = "طلب جديد:%0A";
-  cart.forEach(item => {
-    message += `${item.name} - ${item.price} جنيه%0A`;
-  });
-
-  const total = cart.reduce((sum, i) => sum + i.price, 0);
-  message += `الإجمالي: ${total} جنيه`;
-
-  window.open(`https://wa.me/201125210875?text=${message}`);
-}
-
-document.getElementById("search").addEventListener("input", (e) => {
-  const value = e.target.value.toLowerCase();
-  const filtered = products.filter(p =>
-    p.name.toLowerCase().includes(value)
-  );
-  renderProducts(filtered);
-});
-
-renderProducts(products);
-</script>
 
 </body>
 </html>
