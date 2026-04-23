@@ -8,33 +8,33 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: #f5f5f5;
+  background: #111;
 }
 
-/* هيدر */
+/* الهيدر */
 .header {
-  background: linear-gradient(to right, #ff7eb3, #ff758c);
-  padding: 20px;
+  background: linear-gradient(45deg, #ff0000, #ff4d4d);
+  padding: 15px;
   text-align: center;
   color: white;
-  position: relative;
 }
 
-/* لوجو مدمج */
-.logo-text {
-  font-size: 35px;
-  font-weight: bold;
-  text-shadow: 0 0 10px rgba(0,0,0,0.3);
+/* لوجو صغير */
+.logo {
+  width: 90px;
+  border-radius: 50%;
+  border: 3px solid white;
 }
 
-.logo-text span {
-  color: yellow;
+.title {
+  font-size: 24px;
+  margin-top: 5px;
 }
 
 /* بانر */
 .banner {
   width: 90%;
-  margin: 20px auto;
+  margin: 15px auto;
   border-radius: 20px;
   overflow: hidden;
 }
@@ -43,30 +43,30 @@ body {
   width: 100%;
 }
 
-/* منتجات */
+/* المنتجات */
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 15px;
-  padding: 20px;
+  padding: 15px;
 }
 
 /* كارت */
 .card {
-  background: white;
+  background: #1a1a1a;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  color: white;
   transition: 0.3s;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: scale(1.05);
 }
 
 .card img {
   width: 100%;
-  height: 200px;
+  height: 180px;
   object-fit: cover;
 }
 
@@ -76,7 +76,7 @@ body {
 
 .card p {
   margin: 0 10px;
-  color: gray;
+  color: #ccc;
 }
 
 button {
@@ -84,9 +84,10 @@ button {
   padding: 10px;
   border: none;
   border-radius: 10px;
-  background: #ff758c;
+  background: red;
   color: white;
   width: calc(100% - 20px);
+  cursor: pointer;
 }
 </style>
 </head>
@@ -95,10 +96,12 @@ button {
 
 <!-- هيدر -->
 <div class="header">
-  <div class="logo-text">🎌 Atuko <span>Store</span></div>
+  <!-- لوجو لوفي Gear 5 -->
+  <img class="logo" src="https://i.pinimg.com/736x/3e/9a/7e/3e9a7e0c6b7d8c2c3b9e9f9a3f4f4f4f.jpg">
+  <div class="title">🔥 Atuko Store 🔥</div>
 </div>
 
-<!-- بانر زي الموقع -->
+<!-- بانر -->
 <div class="banner">
   <img src="https://wallpapercave.com/wp/wp8432343.jpg">
 </div>
@@ -124,6 +127,13 @@ button {
     <img src="https://i.pinimg.com/736x/5a/43/28/5a4328c3a4c2f9c1d8f3c2e9d7a3c2.jpg">
     <h3>شنطة انمي</h3>
     <p>250 جنيه</p>
+    <button>أضف للسلة</button>
+  </div>
+
+  <div class="card">
+    <img src="https://i.pinimg.com/736x/aa/3b/44/aa3b44b2f3f2c3c3d9d8c2b7a6a6a6.jpg">
+    <h3>مج دراجون بول</h3>
+    <p>50 جنيه</p>
     <button>أضف للسلة</button>
   </div>
 
