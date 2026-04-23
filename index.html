@@ -56,6 +56,8 @@
 
     .card img {
       width: 100%;
+      height: 200px;
+      object-fit: cover;
       border-radius: 10px;
     }
 
@@ -81,6 +83,7 @@
     .cart-item {
       display: flex;
       justify-content: space-between;
+      margin-bottom: 5px;
     }
 
     .footer {
@@ -93,14 +96,18 @@
 
 <div class="container">
 
-  <img src="https://via.placeholder.com/600x200?text=Luffy+Logo" class="logo">
+  <!-- لوجو -->
+  <img src="https://i.imgur.com/4AiXzf8.jpeg" class="logo">
 
   <h1>اوتاكو Store</h1>
 
+  <!-- بحث -->
   <input type="text" id="search" placeholder="ابحث عن منتج...">
 
+  <!-- منتجات -->
   <div class="products" id="products"></div>
 
+  <!-- سلة -->
   <div class="cart">
     <h2>السلة (<span id="count">0</span>)</h2>
     <div id="cartItems"></div>
@@ -109,6 +116,7 @@
     <button onclick="checkout()">اطلب عبر واتساب</button>
   </div>
 
+  <!-- تواصل -->
   <div class="footer">
     <p>📞 01125210875</p>
     <p>📧 zrootah12@gmail.com</p>
@@ -118,11 +126,31 @@
 
 <script>
   const products = [
-    { name: "ستيكر اتاك اون تايتن", price: 20 },
-    { name: "تيشيرت اتاك اون تايتن", price: 400 },
-    { name: "شنطة اتاك اون تايتن", price: 250 },
-    { name: "تيشيرت غوجو", price: 300 },
-    { name: "مج دراجون بول", price: 50 },
+    {
+      name: "ستيكر اتاك اون تايتن",
+      price: 20,
+      image: "https://i.imgur.com/8Km9tLL.jpg"
+    },
+    {
+      name: "تيشيرت اتاك اون تايتن",
+      price: 400,
+      image: "https://i.imgur.com/JqEuJ6t.jpg"
+    },
+    {
+      name: "شنطة اتاك اون تايتن",
+      price: 250,
+      image: "https://i.imgur.com/9Xn4F2R.jpg"
+    },
+    {
+      name: "تيشيرت غوجو",
+      price: 300,
+      image: "https://i.imgur.com/Wv6KQ7x.jpg"
+    },
+    {
+      name: "مج دراجون بول",
+      price: 50,
+      image: "https://i.imgur.com/qIufhof.jpg"
+    }
   ];
 
   let cart = [];
@@ -134,7 +162,7 @@
     list.forEach((p, index) => {
       container.innerHTML += `
         <div class="card">
-          <img src="https://via.placeholder.com/300x200">
+          <img src="${p.image}">
           <h3>${p.name}</h3>
           <p>${p.price} جنيه</p>
           <button onclick="addToCart(${index})">أضف للسلة</button>
@@ -166,7 +194,8 @@
       items.innerHTML += `
         <div class="cart-item">
           <span>${item.name}</span>
-          <span>${item.price} جنيه 
+          <span>
+            ${item.price} جنيه 
             <button onclick="removeFromCart(${i})">❌</button>
           </span>
         </div>
@@ -196,7 +225,9 @@
 
   document.getElementById("search").addEventListener("input", (e) => {
     const value = e.target.value.toLowerCase();
-    const filtered = products.filter(p => p.name.toLowerCase().includes(value));
+    const filtered = products.filter(p =>
+      p.name.toLowerCase().includes(value)
+    );
     renderProducts(filtered);
   });
 
