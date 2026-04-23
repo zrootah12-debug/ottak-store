@@ -11,163 +11,151 @@
   box-sizing: border-box;
 }
 
-:root {
-  --red: #ff2e2e;
-  --dark: #0d0d0d;
-  --card: #1a1a1a;
-  --text: #ffffff;
-}
-
 body {
-  font-family: 'Segoe UI', Arial;
-  background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+  font-family: Arial;
+  background: radial-gradient(circle, #1a0000, #000);
   color: white;
+  overflow-x: hidden;
 }
 
-/* 🔴 HEADER */
+/* 🔥 خلفية أنمي */
+.bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url('https://wallpapercave.com/wp/wp8432343.jpg') no-repeat center;
+  background-size: cover;
+  opacity: 0.15;
+  z-index: -1;
+}
+
+/* 🧢 الهيدر */
 .header {
-  position: sticky;
-  top: 0;
-  background: linear-gradient(45deg, #ff0000cc, #ff4d4dcc);
-  backdrop-filter: blur(10px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  text-align: center;
+  padding: 20px;
 }
 
+/* لوجو لوفي جير 5 */
 .logo {
-  width: 45px;
-  height: 45px;
+  width: 120px;
   border-radius: 50%;
-  border: 2px solid white;
-  transition: 0.3s;
+  border: 4px solid red;
+  box-shadow: 0 0 20px red;
+  animation: float 3s infinite ease-in-out;
 }
 
-.logo:hover {
-  transform: scale(1.1) rotate(10deg);
+@keyframes float {
+  0% {transform: translateY(0);}
+  50% {transform: translateY(-10px);}
+  100% {transform: translateY(0);}
 }
 
 .title {
-  font-weight: bold;
+  font-size: 28px;
+  margin-top: 10px;
+  color: #ff3b3b;
 }
 
-/* 🎌 BANNER */
-.banner img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-}
-
-/* 🛍️ PRODUCTS */
+/* 🎮 المنتجات */
 .products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-  gap: 15px;
-  padding: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
 }
 
+/* 🧸 كارت مش مربع */
 .card {
-  background: var(--card);
-  border-radius: 15px;
-  overflow: hidden;
+  width: 200px;
+  background: #1a1a1a;
+  border-radius: 25px;
+  padding: 10px;
+  text-align: center;
+  position: relative;
   transition: 0.3s;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
 }
 
 .card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: scale(1.1) rotate(-2deg);
 }
 
+/* صورة دائرية */
 .card img {
   width: 100%;
-  height: 180px;
+  height: 160px;
+  border-radius: 20px;
   object-fit: cover;
 }
 
-.card h3 {
-  margin: 10px;
-  font-size: 16px;
+/* استيكر كيوت */
+.badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: red;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
 }
 
-.price {
-  color: var(--red);
-  margin: 0 10px;
-}
-
+/* زر */
 button {
-  margin: 10px;
-  padding: 10px;
+  margin-top: 10px;
+  padding: 8px;
   border: none;
-  border-radius: 10px;
-  background: linear-gradient(45deg, red, orange);
+  border-radius: 15px;
+  background: red;
   color: white;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-button:hover {
-  transform: scale(1.05);
-}
-
-/* 🛒 CART */
+/* 🛒 السلة */
 .cart {
   background: white;
   color: black;
-  margin: 15px;
+  margin: 20px;
   padding: 15px;
-  border-radius: 15px;
+  border-radius: 20px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
+<div class="bg"></div>
+
+<!-- 🧢 هيدر -->
 <div class="header">
-  <img class="logo" src="https://upload.wikimedia.org/wikipedia/en/6/6f/Monkey_D._Luffy.png">
+  <img class="logo" src="https://i.pinimg.com/736x/9d/8f/8c/9d8f8c7d7b7d7b7d7b7d7b7d7b7d7b7d.jpg">
   <div class="title">🔥 Atuko Store 🔥</div>
 </div>
 
-<!-- BANNER -->
-<div class="banner">
-  <img src="https://wallpapercave.com/wp/wp8432343.jpg">
-</div>
-
-<!-- PRODUCTS -->
+<!-- 🎮 منتجات -->
 <div class="products" id="products"></div>
 
-<!-- CART -->
+<!-- 🛒 سلة -->
 <div class="cart">
   <h3>🛒 السلة (<span id="count">0</span>)</h3>
   <div id="cartItems"></div>
-  <hr>
-  <b>الإجمالي: <span id="total">0</span> جنيه</b>
 </div>
 
 <script>
 const products = [
   {
     name: "ستيكر لوفي",
-    price: 20,
-    image: "https://upload.wikimedia.org/wikipedia/en/6/6f/Monkey_D._Luffy.png"
+    image: "https://i.pinimg.com/736x/7d/2c/5b/7d2c5b8d5e0e0e0f4f4f4f4f4f4f4f4f.jpg",
+    badge: "🔥"
   },
   {
     name: "تيشيرت ون بيس",
-    price: 400,
-    image: "https://wallpapercave.com/wp/wp7433809.jpg"
+    image: "https://i.pinimg.com/736x/0c/84/0d/0c840d89a0c9e7c3f3b7c9e8f2f3d3c.jpg",
+    badge: "⭐"
   },
   {
     name: "شنطة انمي",
-    price: 250,
-    image: "https://wallpapercave.com/wp/wp8432343.jpg"
-  },
-  {
-    name: "مج دراجون بول",
-    price: 50,
-    image: "https://wallpapercave.com/wp/wp2757874.jpg"
+    image: "https://i.pinimg.com/736x/5a/43/28/5a4328c3a4c2f9c1d8f3c2e9d7a3c2.jpg",
+    badge: "🎮"
   }
 ];
 
@@ -175,15 +163,14 @@ let cart = [];
 
 function renderProducts() {
   const container = document.getElementById("products");
-  container.innerHTML = "";
 
   products.forEach((p, i) => {
     container.innerHTML += `
       <div class="card">
+        <div class="badge">${p.badge}</div>
         <img src="${p.image}">
         <h3>${p.name}</h3>
-        <p class="price">${p.price} جنيه</p>
-        <button onclick="addToCart(${i})">أضف للسلة</button>
+        <button onclick="addToCart(${i})">أضف</button>
       </div>
     `;
   });
@@ -191,20 +178,6 @@ function renderProducts() {
 
 function addToCart(i) {
   cart.push(products[i]);
-  updateCart();
-}
-
-function updateCart() {
-  let total = 0;
-  let html = "";
-
-  cart.forEach((item) => {
-    total += item.price;
-    html += `<div>${item.name} - ${item.price} جنيه</div>`;
-  });
-
-  document.getElementById("cartItems").innerHTML = html;
-  document.getElementById("total").innerText = total;
   document.getElementById("count").innerText = cart.length;
 }
 
