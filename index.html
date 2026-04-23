@@ -12,16 +12,15 @@ body {
   color: white;
 }
 
-/* بانر */
+/* الهيدر */
 .header {
-  background: url('https://i.imgur.com/3ZQ3Z4B.png') no-repeat center;
-  background-size: cover;
   text-align: center;
-  padding: 40px 10px;
+  padding: 30px;
+  background: linear-gradient(45deg, red, orange);
 }
 
 .logo {
-  width: 300px;
+  width: 250px;
   animation: float 3s infinite ease-in-out;
 }
 
@@ -31,43 +30,28 @@ body {
   100% {transform: translateY(0);}
 }
 
-/* عنوان */
 .title {
-  font-size: 30px;
-  margin-top: 10px;
-  text-shadow: 0 0 10px red;
+  font-size: 28px;
 }
 
-/* منتجات */
+/* المنتجات */
 .products {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  gap: 15px;
+  padding: 15px;
 }
 
-/* كارت */
 .card {
   background: #1a1a1a;
   border-radius: 20px;
   padding: 10px;
-  position: relative;
+  text-align: center;
   transition: 0.3s;
 }
 
 .card:hover {
   transform: scale(1.05);
-}
-
-/* لابل */
-.badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: red;
-  padding: 5px 10px;
-  border-radius: 10px;
-  font-size: 12px;
 }
 
 .card img {
@@ -81,7 +65,6 @@ button {
   background: linear-gradient(45deg, red, orange);
   border: none;
   padding: 10px;
-  width: 100%;
   border-radius: 10px;
   color: white;
   margin-top: 10px;
@@ -89,10 +72,10 @@ button {
 
 /* السلة */
 .cart {
-  background: #fff;
+  background: white;
   color: black;
-  margin: 20px;
-  padding: 20px;
+  margin: 15px;
+  padding: 15px;
   border-radius: 20px;
 }
 </style>
@@ -100,16 +83,14 @@ button {
 
 <body>
 
-<!-- بانر -->
 <div class="header">
-  <img src="logo.png" class="logo">
+  <!-- لوجو أنمي -->
+  <img class="logo" src="https://upload.wikimedia.org/wikipedia/en/6/6f/Monkey_D._Luffy.png">
   <div class="title">🔥 Atuko Store 🔥</div>
 </div>
 
-<!-- منتجات -->
 <div class="products" id="products"></div>
 
-<!-- سلة -->
 <div class="cart">
   <h2>السلة (<span id="count">0</span>)</h2>
   <div id="cartItems"></div>
@@ -122,32 +103,27 @@ const products = [
   {
     name: "ستيكر اتاك اون تايتن",
     price: 20,
-    image: "https://m.media-amazon.com/images/I/61k6xZ4FJDL._AC_UF1000,1000_QL80_.jpg",
-    badge: "جديد"
+    image: "https://picsum.photos/300/200?1"
   },
   {
     name: "تيشيرت اتاك اون تايتن",
     price: 400,
-    image: "https://m.media-amazon.com/images/I/71lq2F2+7yL._AC_UX679_.jpg",
-    badge: "الأكثر طلبًا"
+    image: "https://picsum.photos/300/200?2"
   },
   {
     name: "شنطة اتاك اون تايتن",
     price: 250,
-    image: "https://m.media-amazon.com/images/I/81k8qZpKXhL._AC_UY879_.jpg",
-    badge: "كيوت"
+    image: "https://picsum.photos/300/200?3"
   },
   {
     name: "تيشيرت غوجو",
     price: 300,
-    image: "https://m.media-amazon.com/images/I/61W3+z3kZDL._AC_UX679_.jpg",
-    badge: "جديد"
+    image: "https://picsum.photos/300/200?4"
   },
   {
     name: "مج دراجون بول",
     price: 50,
-    image: "https://m.media-amazon.com/images/I/71QKQ9mwV7L._AC_SL1500_.jpg",
-    badge: "🔥"
+    image: "https://picsum.photos/300/200?5"
   }
 ];
 
@@ -160,7 +136,6 @@ function renderProducts() {
   products.forEach((p, i) => {
     container.innerHTML += `
       <div class="card">
-        <div class="badge">${p.badge}</div>
         <img src="${p.image}">
         <h3>${p.name}</h3>
         <p>${p.price} جنيه</p>
