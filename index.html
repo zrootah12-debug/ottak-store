@@ -8,73 +8,123 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: #ffe4ec;
-  text-align: center;
+  background: #f5f5f5;
 }
 
 /* هيدر */
 .header {
-  background: #ff9aa2;
+  background: linear-gradient(to right, #ff7eb3, #ff758c);
   padding: 20px;
+  text-align: center;
+  color: white;
+  position: relative;
 }
 
-.logo {
-  width: 120px;
+/* لوجو مدمج */
+.logo-text {
+  font-size: 35px;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
-h1 {
-  margin: 10px 0;
+.logo-text span {
+  color: yellow;
+}
+
+/* بانر */
+.banner {
+  width: 90%;
+  margin: 20px auto;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.banner img {
+  width: 100%;
 }
 
 /* منتجات */
 .products {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  padding: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  padding: 20px;
 }
 
+/* كارت */
 .card {
   background: white;
-  border-radius: 15px;
-  padding: 10px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
 }
 
 .card img {
   width: 100%;
-  border-radius: 10px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card h3 {
+  margin: 10px;
+}
+
+.card p {
+  margin: 0 10px;
+  color: gray;
 }
 
 button {
-  background: #ff6b81;
-  color: white;
+  margin: 10px;
+  padding: 10px;
   border: none;
-  padding: 8px;
   border-radius: 10px;
-  margin-top: 5px;
+  background: #ff758c;
+  color: white;
+  width: calc(100% - 20px);
 }
 </style>
 </head>
 
 <body>
 
+<!-- هيدر -->
 <div class="header">
-  <img class="logo" src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png">
-  <h1>🎀 Atuko Store 🎀</h1>
+  <div class="logo-text">🎌 Atuko <span>Store</span></div>
 </div>
 
+<!-- بانر زي الموقع -->
+<div class="banner">
+  <img src="https://wallpapercave.com/wp/wp8432343.jpg">
+</div>
+
+<!-- منتجات -->
 <div class="products">
 
   <div class="card">
-    <img src="https://picsum.photos/200?1">
-    <p>ستيكر انمي</p>
-    <button>أضف</button>
+    <img src="https://i.pinimg.com/736x/61/7e/1c/617e1c4d8f0e7a6c9d3e1c7e8a9f3f3f.jpg">
+    <h3>ستيكر اتاك اون تايتن</h3>
+    <p>20 جنيه</p>
+    <button>أضف للسلة</button>
   </div>
 
   <div class="card">
-    <img src="https://picsum.photos/200?2">
-    <p>تيشيرت انمي</p>
-    <button>أضف</button>
+    <img src="https://i.pinimg.com/736x/0c/84/0d/0c840d89a0c9e7c3f3b7c9e8f2f3d3c.jpg">
+    <h3>تيشيرت انمي</h3>
+    <p>400 جنيه</p>
+    <button>أضف للسلة</button>
+  </div>
+
+  <div class="card">
+    <img src="https://i.pinimg.com/736x/5a/43/28/5a4328c3a4c2f9c1d8f3c2e9d7a3c2.jpg">
+    <h3>شنطة انمي</h3>
+    <p>250 جنيه</p>
+    <button>أضف للسلة</button>
   </div>
 
 </div>
