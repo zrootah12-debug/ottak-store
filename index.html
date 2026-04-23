@@ -1,237 +1,238 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>اوتاكو Store</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: #dc2626;
-      color: white;
-    }
+<meta charset="UTF-8">
+<title>اوتاكو Store</title>
 
-    .container {
-      padding: 20px;
-    }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
 
-    h1 {
-      text-align: center;
-    }
+body {
+  margin: 0;
+  font-family: 'Cairo', sans-serif;
+  background: linear-gradient(135deg, #7f1d1d, #dc2626);
+  color: white;
+}
 
-    .logo {
-      display: block;
-      margin: auto;
-      border-radius: 15px;
-      width: 80%;
-      max-width: 500px;
-    }
+.container {
+  padding: 20px;
+}
 
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 15px 0;
-      border-radius: 8px;
-      border: none;
-    }
+.logo {
+  display: block;
+  margin: auto;
+  width: 300px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px black;
+}
 
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-    }
+h1 {
+  text-align: center;
+  font-size: 40px;
+  text-shadow: 2px 2px 10px black;
+}
 
-    .card {
-      background: white;
-      color: black;
-      border-radius: 12px;
-      padding: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: 0.3s;
-    }
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  margin: 15px 0;
+}
 
-    .card:hover {
-      transform: scale(1.05);
-    }
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
 
-    .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
+.card {
+  background: #111;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+  transition: 0.3s;
+}
 
-    button {
-      width: 100%;
-      padding: 10px;
-      background: black;
-      color: white;
-      border: none;
-      margin-top: 10px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+.card:hover {
+  transform: scale(1.05) rotate(1deg);
+}
 
-    .cart {
-      background: white;
-      color: black;
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 12px;
-    }
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
 
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 5px;
-    }
+.card h3 {
+  margin: 10px;
+}
 
-    .footer {
-      text-align: center;
-      margin-top: 20px;
-    }
-  </style>
+.card p {
+  margin: 0 10px 10px;
+}
+
+button {
+  width: 90%;
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  background: #dc2626;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cart {
+  background: white;
+  color: black;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 20px;
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
 
-  <!-- لوجو -->
-  <img src="https://i.imgur.com/4AiXzf8.jpeg" class="logo">
+<!-- لوجو أنمي -->
+<img src="https://wallpapercave.com/wp/wp8432343.jpg" class="logo">
 
-  <h1>اوتاكو Store</h1>
+<h1>🔥 اوتاكو Store 🔥</h1>
 
-  <!-- بحث -->
-  <input type="text" id="search" placeholder="ابحث عن منتج...">
+<input type="text" id="search" placeholder="ابحث عن انمي...">
 
-  <!-- منتجات -->
-  <div class="products" id="products"></div>
+<div class="products" id="products"></div>
 
-  <!-- سلة -->
-  <div class="cart">
-    <h2>السلة (<span id="count">0</span>)</h2>
-    <div id="cartItems"></div>
-    <hr>
-    <p><b>الإجمالي: <span id="total">0</span> جنيه</b></p>
-    <button onclick="checkout()">اطلب عبر واتساب</button>
-  </div>
+<div class="cart">
+  <h2>السلة (<span id="count">0</span>)</h2>
+  <div id="cartItems"></div>
+  <hr>
+  <p><b>الإجمالي: <span id="total">0</span> جنيه</b></p>
+  <button onclick="checkout()">اطلب عبر واتساب</button>
+</div>
 
-  <!-- تواصل -->
-  <div class="footer">
-    <p>📞 01125210875</p>
-    <p>📧 zrootah12@gmail.com</p>
-  </div>
+<div class="footer">
+  <p>📞 01125210875</p>
+</div>
 
 </div>
 
 <script>
-  const products = [
-    {
-      name: "ستيكر اتاك اون تايتن",
-      price: 20,
-      image: "https://i.imgur.com/8Km9tLL.jpg"
-    },
-    {
-      name: "تيشيرت اتاك اون تايتن",
-      price: 400,
-      image: "https://i.imgur.com/JqEuJ6t.jpg"
-    },
-    {
-      name: "شنطة اتاك اون تايتن",
-      price: 250,
-      image: "https://i.imgur.com/9Xn4F2R.jpg"
-    },
-    {
-      name: "تيشيرت غوجو",
-      price: 300,
-      image: "https://i.imgur.com/Wv6KQ7x.jpg"
-    },
-    {
-      name: "مج دراجون بول",
-      price: 50,
-      image: "https://i.imgur.com/qIufhof.jpg"
-    }
-  ];
-
-  let cart = [];
-
-  function renderProducts(list) {
-    const container = document.getElementById("products");
-    container.innerHTML = "";
-
-    list.forEach((p, index) => {
-      container.innerHTML += `
-        <div class="card">
-          <img src="${p.image}">
-          <h3>${p.name}</h3>
-          <p>${p.price} جنيه</p>
-          <button onclick="addToCart(${index})">أضف للسلة</button>
-        </div>
-      `;
-    });
+const products = [
+  {
+    name: "ستيكر اتاك اون تايتن",
+    price: 20,
+    image: "https://wallpapercave.com/wp/wp7418479.jpg"
+  },
+  {
+    name: "تيشيرت اتاك اون تايتن",
+    price: 400,
+    image: "https://wallpapercave.com/wp/wp7418483.jpg"
+  },
+  {
+    name: "شنطة اتاك اون تايتن",
+    price: 250,
+    image: "https://wallpapercave.com/wp/wp7418505.jpg"
+  },
+  {
+    name: "تيشيرت غوجو",
+    price: 300,
+    image: "https://wallpapercave.com/wp/wp11039847.jpg"
+  },
+  {
+    name: "مج دراجون بول",
+    price: 50,
+    image: "https://wallpapercave.com/wp/wp2757874.jpg"
   }
+];
 
-  function addToCart(index) {
-    cart.push(products[index]);
-    updateCart();
-  }
+let cart = [];
 
-  function removeFromCart(i) {
-    cart.splice(i, 1);
-    updateCart();
-  }
+function renderProducts(list) {
+  const container = document.getElementById("products");
+  container.innerHTML = "";
 
-  function updateCart() {
-    const items = document.getElementById("cartItems");
-    const totalEl = document.getElementById("total");
-    const count = document.getElementById("count");
+  list.forEach((p, index) => {
+    container.innerHTML += `
+      <div class="card">
+        <img src="${p.image}">
+        <h3>${p.name}</h3>
+        <p>${p.price} جنيه</p>
+        <button onclick="addToCart(${index})">أضف للسلة</button>
+      </div>
+    `;
+  });
+}
 
-    items.innerHTML = "";
-    let total = 0;
+function addToCart(index) {
+  cart.push(products[index]);
+  updateCart();
+}
 
-    cart.forEach((item, i) => {
-      total += item.price;
-      items.innerHTML += `
-        <div class="cart-item">
-          <span>${item.name}</span>
-          <span>
-            ${item.price} جنيه 
-            <button onclick="removeFromCart(${i})">❌</button>
-          </span>
-        </div>
-      `;
-    });
+function removeFromCart(i) {
+  cart.splice(i, 1);
+  updateCart();
+}
 
-    totalEl.innerText = total;
-    count.innerText = cart.length;
-  }
+function updateCart() {
+  const items = document.getElementById("cartItems");
+  const totalEl = document.getElementById("total");
+  const count = document.getElementById("count");
 
-  function checkout() {
-    if (cart.length === 0) {
-      alert("السلة فاضية");
-      return;
-    }
+  items.innerHTML = "";
+  let total = 0;
 
-    let message = "طلب جديد:%0A";
-    cart.forEach(item => {
-      message += `${item.name} - ${item.price} جنيه%0A`;
-    });
-
-    const total = cart.reduce((sum, i) => sum + i.price, 0);
-    message += `الإجمالي: ${total} جنيه`;
-
-    window.open(`https://wa.me/201125210875?text=${message}`);
-  }
-
-  document.getElementById("search").addEventListener("input", (e) => {
-    const value = e.target.value.toLowerCase();
-    const filtered = products.filter(p =>
-      p.name.toLowerCase().includes(value)
-    );
-    renderProducts(filtered);
+  cart.forEach((item, i) => {
+    total += item.price;
+    items.innerHTML += `
+      <div class="cart-item">
+        <span>${item.name}</span>
+        <span>${item.price} جنيه 
+        <button onclick="removeFromCart(${i})">❌</button>
+        </span>
+      </div>
+    `;
   });
 
-  renderProducts(products);
+  totalEl.innerText = total;
+  count.innerText = cart.length;
+}
+
+function checkout() {
+  let message = "طلب جديد:%0A";
+  cart.forEach(item => {
+    message += `${item.name} - ${item.price} جنيه%0A`;
+  });
+
+  const total = cart.reduce((sum, i) => sum + i.price, 0);
+  message += `الإجمالي: ${total} جنيه`;
+
+  window.open(`https://wa.me/201125210875?text=${message}`);
+}
+
+document.getElementById("search").addEventListener("input", (e) => {
+  const value = e.target.value.toLowerCase();
+  const filtered = products.filter(p =>
+    p.name.toLowerCase().includes(value)
+  );
+  renderProducts(filtered);
+});
+
+renderProducts(products);
 </script>
 
 </body>
