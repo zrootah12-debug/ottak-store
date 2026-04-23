@@ -8,91 +8,105 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: #0b0b0b;
-  color: white;
+  background: #fff0f5;
+  color: #333;
 }
 
 /* الهيدر */
 .header {
   text-align: center;
-  padding: 30px;
-  background: linear-gradient(45deg, red, orange);
+  padding: 25px;
+  background: linear-gradient(45deg, #ff9a9e, #fad0c4);
 }
 
 .logo {
-  width: 250px;
-  animation: float 3s infinite ease-in-out;
-}
-
-@keyframes float {
-  0% {transform: translateY(0);}
-  50% {transform: translateY(-10px);}
-  100% {transform: translateY(0);}
+  width: 180px;
+  border-radius: 50%;
 }
 
 .title {
-  font-size: 28px;
+  font-size: 26px;
+  margin-top: 10px;
 }
 
 /* المنتجات */
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 15px;
   padding: 15px;
 }
 
+/* الكارت */
 .card {
-  background: #1a1a1a;
+  background: #ffffff;
   border-radius: 20px;
   padding: 10px;
   text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   transition: 0.3s;
+  position: relative;
 }
 
 .card:hover {
   transform: scale(1.05);
 }
 
+/* استيكر كيوت */
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff6b6b;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
 .card img {
   width: 100%;
-  height: 180px;
+  height: 150px;
   border-radius: 15px;
   object-fit: cover;
 }
 
 button {
-  background: linear-gradient(45deg, red, orange);
+  background: #ff9a9e;
   border: none;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 15px;
   color: white;
+  font-weight: bold;
   margin-top: 10px;
+  cursor: pointer;
 }
 
 /* السلة */
 .cart {
-  background: white;
-  color: black;
+  background: #fff;
   margin: 15px;
   padding: 15px;
   border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 </style>
 </head>
 
 <body>
 
+<!-- هيدر -->
 <div class="header">
-  <!-- لوجو أنمي -->
-  <img class="logo" src="https://upload.wikimedia.org/wikipedia/en/6/6f/Monkey_D._Luffy.png">
-  <div class="title">🔥 Atuko Store 🔥</div>
+  <img class="logo" src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png">
+  <div class="title">🎀 Atuko Store 🎀</div>
 </div>
 
+<!-- منتجات -->
 <div class="products" id="products"></div>
 
+<!-- سلة -->
 <div class="cart">
-  <h2>السلة (<span id="count">0</span>)</h2>
+  <h2>🛒 السلة (<span id="count">0</span>)</h2>
   <div id="cartItems"></div>
   <hr>
   <b>الإجمالي: <span id="total">0</span> جنيه</b>
@@ -101,29 +115,28 @@ button {
 <script>
 const products = [
   {
-    name: "ستيكر اتاك اون تايتن",
+    name: "ستيكر انمي",
     price: 20,
-    image: "https://picsum.photos/300/200?1"
+    image: "https://picsum.photos/200/150?1",
+    badge: "كيوت"
   },
   {
-    name: "تيشيرت اتاك اون تايتن",
+    name: "تيشيرت انمي",
     price: 400,
-    image: "https://picsum.photos/300/200?2"
+    image: "https://picsum.photos/200/150?2",
+    badge: "🔥"
   },
   {
-    name: "شنطة اتاك اون تايتن",
+    name: "شنطة انمي",
     price: 250,
-    image: "https://picsum.photos/300/200?3"
+    image: "https://picsum.photos/200/150?3",
+    badge: "جديد"
   },
   {
-    name: "تيشيرت غوجو",
-    price: 300,
-    image: "https://picsum.photos/300/200?4"
-  },
-  {
-    name: "مج دراجون بول",
+    name: "مج انمي",
     price: 50,
-    image: "https://picsum.photos/300/200?5"
+    image: "https://picsum.photos/200/150?4",
+    badge: "⭐"
   }
 ];
 
@@ -136,6 +149,7 @@ function renderProducts() {
   products.forEach((p, i) => {
     container.innerHTML += `
       <div class="card">
+        <div class="badge">${p.badge}</div>
         <img src="${p.image}">
         <h3>${p.name}</h3>
         <p>${p.price} جنيه</p>
