@@ -12,7 +12,6 @@ body {
   color: white;
 }
 
-/* هيدر */
 .header {
   text-align: center;
   padding: 15px;
@@ -29,7 +28,6 @@ body {
   margin-top: 10px;
 }
 
-/* منتجات */
 .products {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -66,7 +64,6 @@ button {
   cursor: pointer;
 }
 
-/* سلة */
 .cart {
   background: white;
   color: black;
@@ -79,16 +76,14 @@ button {
 
 <body>
 
-<!-- لوجو طفولي أنمي -->
 <div class="header">
+  <!-- لوجو كيوت -->
   <img class="logo" src="https://i.imgur.com/2DhmtJ4.png">
   <div class="title">✨ Atuko Store ✨</div>
 </div>
 
-<!-- منتجات -->
 <div class="products" id="products"></div>
 
-<!-- سلة -->
 <div class="cart">
   <h3>السلة (<span id="count">0</span>)</h3>
   <div id="cartItems"></div>
@@ -101,27 +96,27 @@ const products = [
   {
     name: "ستيكر اتاك اون تايتن",
     price: 20,
-    image: "https://i.imgur.com/3ZQ3Z4B.png"
+    image: "https://m.media-amazon.com/images/I/61k6xZ4FJDL._AC_UF1000,1000_QL80_.jpg"
   },
   {
     name: "تيشيرت اتاك اون تايتن",
     price: 400,
-    image: "https://i.imgur.com/Vn4K7Wq.jpg"
+    image: "https://m.media-amazon.com/images/I/71lq2F2+7yL._AC_UX679_.jpg"
   },
   {
     name: "شنطة اتاك اون تايتن",
     price: 250,
-    image: "https://i.imgur.com/1X6p7Jz.jpg"
+    image: "https://m.media-amazon.com/images/I/81k8qZpKXhL._AC_UY879_.jpg"
   },
   {
     name: "تيشيرت غوجو",
     price: 300,
-    image: "https://i.imgur.com/8yKQF5R.jpg"
+    image: "https://m.media-amazon.com/images/I/61W3+z3kZDL._AC_UX679_.jpg"
   },
   {
     name: "مج دراجون بول",
     price: 50,
-    image: "https://i.imgur.com/l49aYS3.jpg"
+    image: "https://m.media-amazon.com/images/I/71QKQ9mwV7L._AC_SL1500_.jpg"
   }
 ];
 
@@ -152,9 +147,9 @@ function updateCart() {
   let total = 0;
   let html = "";
 
-  cart.forEach((item, i) => {
+  cart.forEach((item) => {
     total += item.price;
-    html += `<div>${item.name} - ${item.price}</div>`;
+    html += `<div>${item.name} - ${item.price} جنيه</div>`;
   });
 
   document.getElementById("cartItems").innerHTML = html;
