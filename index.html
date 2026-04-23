@@ -8,38 +8,50 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: #111;
+  background: #0b0b0b;
   color: white;
 }
 
+/* بانر */
 .header {
+  background: url('https://i.imgur.com/3ZQ3Z4B.png') no-repeat center;
+  background-size: cover;
   text-align: center;
-  padding: 15px;
-  background: linear-gradient(45deg, #ff0000, #ff8800);
+  padding: 40px 10px;
 }
 
 .logo {
-  width: 180px;
-  border-radius: 20px;
+  width: 300px;
+  animation: float 3s infinite ease-in-out;
 }
 
+@keyframes float {
+  0% {transform: translateY(0);}
+  50% {transform: translateY(-10px);}
+  100% {transform: translateY(0);}
+}
+
+/* عنوان */
 .title {
-  font-size: 22px;
+  font-size: 30px;
   margin-top: 10px;
+  text-shadow: 0 0 10px red;
 }
 
+/* منتجات */
 .products {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 15px;
-  padding: 15px;
+  gap: 20px;
+  padding: 20px;
 }
 
+/* كارت */
 .card {
   background: #1a1a1a;
-  border-radius: 15px;
+  border-radius: 20px;
   padding: 10px;
-  text-align: center;
+  position: relative;
   transition: 0.3s;
 }
 
@@ -47,45 +59,59 @@ body {
   transform: scale(1.05);
 }
 
+/* لابل */
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: red;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
 .card img {
   width: 100%;
   height: 180px;
-  border-radius: 10px;
+  border-radius: 15px;
   object-fit: cover;
 }
 
 button {
-  background: #ff0000;
+  background: linear-gradient(45deg, red, orange);
   border: none;
   padding: 10px;
-  color: white;
+  width: 100%;
   border-radius: 10px;
+  color: white;
   margin-top: 10px;
-  cursor: pointer;
 }
 
+/* السلة */
 .cart {
-  background: white;
+  background: #fff;
   color: black;
-  margin: 15px;
-  padding: 15px;
-  border-radius: 15px;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 20px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- بانر -->
 <div class="header">
-  <!-- لوجو كيوت -->
-  <img class="logo" src="https://i.imgur.com/2DhmtJ4.png">
-  <div class="title">✨ Atuko Store ✨</div>
+  <img src="logo.png" class="logo">
+  <div class="title">🔥 Atuko Store 🔥</div>
 </div>
 
+<!-- منتجات -->
 <div class="products" id="products"></div>
 
+<!-- سلة -->
 <div class="cart">
-  <h3>السلة (<span id="count">0</span>)</h3>
+  <h2>السلة (<span id="count">0</span>)</h2>
   <div id="cartItems"></div>
   <hr>
   <b>الإجمالي: <span id="total">0</span> جنيه</b>
@@ -96,27 +122,32 @@ const products = [
   {
     name: "ستيكر اتاك اون تايتن",
     price: 20,
-    image: "https://m.media-amazon.com/images/I/61k6xZ4FJDL._AC_UF1000,1000_QL80_.jpg"
+    image: "https://m.media-amazon.com/images/I/61k6xZ4FJDL._AC_UF1000,1000_QL80_.jpg",
+    badge: "جديد"
   },
   {
     name: "تيشيرت اتاك اون تايتن",
     price: 400,
-    image: "https://m.media-amazon.com/images/I/71lq2F2+7yL._AC_UX679_.jpg"
+    image: "https://m.media-amazon.com/images/I/71lq2F2+7yL._AC_UX679_.jpg",
+    badge: "الأكثر طلبًا"
   },
   {
     name: "شنطة اتاك اون تايتن",
     price: 250,
-    image: "https://m.media-amazon.com/images/I/81k8qZpKXhL._AC_UY879_.jpg"
+    image: "https://m.media-amazon.com/images/I/81k8qZpKXhL._AC_UY879_.jpg",
+    badge: "كيوت"
   },
   {
     name: "تيشيرت غوجو",
     price: 300,
-    image: "https://m.media-amazon.com/images/I/61W3+z3kZDL._AC_UX679_.jpg"
+    image: "https://m.media-amazon.com/images/I/61W3+z3kZDL._AC_UX679_.jpg",
+    badge: "جديد"
   },
   {
     name: "مج دراجون بول",
     price: 50,
-    image: "https://m.media-amazon.com/images/I/71QKQ9mwV7L._AC_SL1500_.jpg"
+    image: "https://m.media-amazon.com/images/I/71QKQ9mwV7L._AC_SL1500_.jpg",
+    badge: "🔥"
   }
 ];
 
@@ -129,6 +160,7 @@ function renderProducts() {
   products.forEach((p, i) => {
     container.innerHTML += `
       <div class="card">
+        <div class="badge">${p.badge}</div>
         <img src="${p.image}">
         <h3>${p.name}</h3>
         <p>${p.price} جنيه</p>
